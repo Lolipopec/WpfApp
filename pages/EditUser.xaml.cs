@@ -20,16 +20,22 @@ namespace WpfApp.pages
     /// </summary>
     public partial class EditUser : Page
     {
-        public EditUser(auth SelectedUser)
+        static users Old;
+        static auth SelectedUser;
+        public EditUser(auth SelectedUsers)
         {
             InitializeComponent();
+            listGenders.ItemsSource = BaseConnect.BaseModel.genders.ToList();
+            listGenders.SelectedValuePath = "id";
+            listGenders.DisplayMemberPath = "gender";
+            SelectedUser = SelectedUsers;
             try
             {
-                txtLog.Text = SelectedUser.login;
-                txtPass.Password = SelectedUser.password;
+                txtLog.Text = SelectedUsers.login;
+                txtPass.Password = SelectedUsers.password;
             }
             catch { }
-            users Old = BaseConnect.BaseModel.users.FirstOrDefault(x => x.id == SelectedUser.id);
+            Old = BaseConnect.BaseModel.users.FirstOrDefault(x => x.id == SelectedUsers.id);
             if (Old != null)
             {
                 try
@@ -39,32 +45,38 @@ namespace WpfApp.pages
                 catch { }
                 try
                 {
-                    txtDr.Text = Old.dr.ToString("yyyy MM dd");
+                    dpDr.Text = Old.dr.ToString("yyyy MM dd");
                 }
                 catch { }
-                
-                    listGenders.ItemsSource = BaseConnect.BaseModel.genders.ToList();
-                    listGenders.SelectedValuePath = "id";
-                    listGenders.DisplayMemberPath = "gender";
-                    listGenders.IsSe
                 try
                 {
-                    List<users_to_traits> LUTT = BaseConnect.BaseModel.users_to_traits.Where(x => x.id_user == Old.id).ToList();
-                    foreach (users_to_traits UTT in LUTT)
+                    List<users_to_traits> LUTT;
+                    LUTT = null;
+
+                    LUTT = BaseConnect.BaseModel.users_to_traits.Where(x => x.id_user == SelectedUsers.id).ToList();
+                    if (LUTT != null)
                     {
-                        if (UTT.traits.trait == cb1.Content.ToString())
+                        foreach (users_to_traits UTT in LUTT)
                         {
-                            cb1.IsChecked = true;
+                            if (UTT != null)
+                            {
+                                if (UTT.traits.trait == cb1.Content.ToString())
+                                {
+                                    cb1.IsChecked = true;
+                                }
+                                if (UTT.traits.trait == cb2.Content.ToString())
+                                {
+                                    cb2.IsChecked = true;
+                                }
+                                if (UTT.traits.trait == cb3.Content.ToString())
+                                {
+                                    cb3.IsChecked = true;
+                                }
+                            }
                         }
-                        if (UTT.traits.trait == cb2.Content.ToString())
-                        {
-                            cb2.IsChecked = true;
-                        }
-                        if (UTT.traits.trait == cb3.Content.ToString())
-                        {
-                            cb3.IsChecked = true;
-                        }
+
                     }
+
                 }
                 catch { }
             }
@@ -74,41 +86,58 @@ namespace WpfApp.pages
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            //auth logPass = new auth() { login = txtLog.Text, password = txtPass.Password, role = 2 };
-            //BaseConnect.BaseModel.auth.Add(logPass);
-            //BaseConnect.BaseModel.SaveChanges();
+            if (Old != null)
+            {
+                Old.name = txtName.Text;
+                Old.dr = (DateTime)dpDr.SelectedDate;
 
-            //users user = new users { name = txtName.Text, id = logPass.id, gender = (int)listGenders.SelectedValue, dr = (DateTime)date.SelectedDate };
-            //BaseConnect.BaseModel.users.Add(user);
+            }
+            else
+            {
+                users user = new users { name = txtName.Text, id = SelectedUser.id, gender = (int)listGenders.SelectedValue, dr = (DateTime)dpDr.SelectedDate };
+                BaseConnect.BaseModel.users.Add(user);
+            }
+            SelectedUser.login = txtLog.Text;
+            SelectedUser.password = txtPass.Password;
+            users_to_traits UTT1 = BaseConnect.BaseModel.users_to_traits.FirstOrDefault(x => x.id_user == SelectedUser.id && x.id_trait == 1);
+            users_to_traits UTT2 = BaseConnect.BaseModel.users_to_traits.FirstOrDefault(x => x.id_user == SelectedUser.id && x.id_trait == 2);
+            users_to_traits UTT3 = BaseConnect.BaseModel.users_to_traits.FirstOrDefault(x => x.id_user == SelectedUser.id && x.id_trait == 3);
 
-            //if (cb1.IsChecked == true)
-            //{
-            //    users_to_traits UTT = new users_to_traits();
-            //    UTT.id_user = user.id;
-            //    UTT.id_trait = 1;
-            //    BaseConnect.BaseModel.users_to_traits.Add(UTT);
-            //}
-            //if (cb2.IsChecked == true)
-            //{
-            //    users_to_traits UTT = new users_to_traits();
-            //    UTT.id_user = user.id;
-            //    UTT.id_trait = 2;
-            //    BaseConnect.BaseModel.users_to_traits.Add(UTT);
-            //}
-            //if (cb3.IsChecked == true)
-            //{
-            //    users_to_traits UTT = new users_to_traits();
-            //    UTT.id_user = user.id;
-            //    UTT.id_trait = 3;
-            //    BaseConnect.BaseModel.users_to_traits.Add(UTT);
-            //}
-            //BaseConnect.BaseModel.SaveChanges();
-            //MessageBox.Show("Успех");
+            if (cb1.IsChecked == true && UTT1 == null)
+            {
+                users_to_traits UTT = new users_to_traits();
+                UTT.id_user = SelectedUser.id;
+                UTT.id_trait = 1;
+                BaseConnect.BaseModel.users_to_traits.Add(UTT);
+
+            }
+            else if (UTT1 != null && cb1.IsChecked != true) { BaseConnect.BaseModel.users_to_traits.Remove(UTT1); }
+            if (cb2.IsChecked == true && UTT2 == null)
+            {
+                users_to_traits UTT = new users_to_traits();
+                UTT.id_user = SelectedUser.id;
+                UTT.id_trait = 2;
+                BaseConnect.BaseModel.users_to_traits.Add(UTT);
+
+            }
+            else if (UTT2 != null && cb2.IsChecked != true) { BaseConnect.BaseModel.users_to_traits.Remove(UTT2); }
+            if (cb3.IsChecked == true && UTT3 == null)
+            {
+                users_to_traits UTT = new users_to_traits();
+                UTT.id_user = SelectedUser.id;
+                UTT.id_trait = 3;
+                BaseConnect.BaseModel.users_to_traits.Add(UTT);
+
+            }
+            else if (UTT3 != null && cb3.IsChecked != true) { BaseConnect.BaseModel.users_to_traits.Remove(UTT3); }
+            BaseConnect.BaseModel.SaveChanges();
+            MessageBox.Show("Успех");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             LoadPages.MainFrame.GoBack();
+
         }
     }
 }

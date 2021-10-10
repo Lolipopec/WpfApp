@@ -22,7 +22,7 @@
                         <TextBox x:Name="txtName"/>
                     </GroupBox>
                     <GroupBox Header="Дату рождения">
-                        <TextBox x:Name="txtDr"/>
+                        <DatePicker x:Name="dpDr"/>
                     </GroupBox>
                     <GroupBox Header=" пол">
                         <ListBox x:Name="listGenders"/>
@@ -33,9 +33,6 @@
                             <CheckBox Content="Нежный" Name="cb2"/>
                             <CheckBox Content="Ласковый" Name="cb3"/>
                         </StackPanel>
-                    </GroupBox>
-                    <GroupBox Header=" качества личности">
-                        <TextBox x:Name="tbTraits"/>
                     </GroupBox>
                     <Button Content="Сохранить" Name="btnSave" Style="{StaticResource BTN}" Click="btnSave_Click"/>
                     <Button Content="Назад" Style="{StaticResource BTN}" Click="Button_Click"/>

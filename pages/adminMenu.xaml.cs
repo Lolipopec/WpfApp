@@ -28,7 +28,7 @@ namespace WpfApp.pages
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            LoadPages.MainFrame.Navigate(new EditUser((auth)dgUsers.SelectedItem)); 
+            LoadPages.MainFrame.Navigate(new EditUser((auth)dgUsers.SelectedItem));
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
@@ -43,6 +43,7 @@ namespace WpfApp.pages
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             LoadPages.MainFrame.GoBack();
+
         }
     }
 }
