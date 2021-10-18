@@ -141,7 +141,7 @@ namespace WpfApp.pages
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            LoadPages.MainFrame.Navigate(new adminMenu());
+            LoadPages.MainFrame.GoBack();
         }
     }
 }

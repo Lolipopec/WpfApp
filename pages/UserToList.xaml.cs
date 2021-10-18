@@ -30,11 +30,14 @@ namespace WpfApp.pages
             cbGenderS.ItemsSource = genders;
             cbGenderS.SelectedValuePath = "id";
             cbGenderS.DisplayMemberPath = "gender";
+            btnCreateUser.Content = "Создать\nпользователя";
+            bntOldVers.Content = "Cтарая\nверсия";
         }
         private void lbTraits_Loaded(object sender, RoutedEventArgs e)
         {
             TextBlock lb = (TextBlock)sender;
             int id = Convert.ToInt32(lb.Uid);
+            lb.Text = "";
             List <users_to_traits> l= BaseConnect.BaseModel.users_to_traits.Where(x => x.id_user == id).ToList();
             foreach (var a in l)
             {

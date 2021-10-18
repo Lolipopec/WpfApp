@@ -29,8 +29,8 @@
                     </StackPanel>
                 </GroupBox>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="Изменить" Width="70" Name="btnChange" Style="{StaticResource BTN}" Click="btnChange_Click" Uid="{Binding id}" />
-                    <Button Content="Удалить" Width="70" Name="btnDelete" Style="{StaticResource BTN}" Click="btnDelete_Click" Uid="{Binding id}" />
+                    <Button Margin="0,0,5,0" Width="70" Content="Изменить" Height="50" Name="btnChange" Style="{StaticResource BTN}" Click="btnChange_Click" Uid="{Binding id}" />
+                    <Button Margin="0,0,5,0" Width="70" Content="Удалить" Height="50" Name="btnDelete" Style="{StaticResource BTN}" Click="btnDelete_Click" Uid="{Binding id}" />
                 </StackPanel>
             </StackPanel>
         </DataTemplate>
@@ -40,10 +40,6 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="64*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="2*"/>
-        </Grid.ColumnDefinitions>
         <DockPanel>
             <StackPanel Orientation="Horizontal">
                 <GroupBox Header="Поля сортировки" Width="120">
@@ -71,17 +67,19 @@
                     <TextBox x:Name = "tbFinish" Width = "45" />
                 </GroupBox >
                 <GroupBox Header = "Пол" Name = "Gend"  Visibility = "Collapsed">
-                    <ComboBox x:Name = "cbGenderS" Width = "100" />
+                    <ComboBox x:Name = "cbGenderS" Width = "100"/>
                 </GroupBox >
             </StackPanel>
         </DockPanel>
-        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="5">
-            <Button x:Name="btnSort" Grid.Column="1" Content="Применить" Click="btnSort_Click" Margin="0,0,5,0"/>
-            <Button x:Name="btnRset"   Grid.Row="0" Content="Сбросить" Click="btnRset_Click" Margin="0,0,5,0" />
-            <Button Content="Создать пользователя" Click="btnCreateUser_Click" x:Name="btnCreateUser" Margin="0,0,5,0"/>
-            <Button Content="Старая версия" x:Name="bntOldVers" Click="bntOldVers_Click" Margin="0,0,5,0"/>
-            <Button Content="Назад" x:Name="btnBack" Click="btnBack_Click" Margin="0,0,5,0"/>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
+            <StackPanel Orientation="Vertical" Width="80">
+                <Button x:Name="btnSort" Content="Применить" Click="btnSort_Click" Margin="0,0,5,0" Style="{StaticResource BTN}"/>
+                <Button x:Name="btnRset" Grid.Row="0" Content="Сбросить" Click="btnRset_Click" Margin="0,0,5,0" Style="{StaticResource BTN}" />
+            </StackPanel>
+            <Button Width="80" Click="btnCreateUser_Click" x:Name="btnCreateUser" Margin="0,0,5,0" Style="{StaticResource BTN}"/>
+            <Button Width="80" x:Name="bntOldVers" Click="bntOldVers_Click" Margin="0,0,5,0" Style="{StaticResource BTN}"/>
+            <Button Content="Назад"  Width="80" x:Name="btnBack" Click="btnBack_Click" Margin="0,0,5,0" Style="{StaticResource BTN}"/>
         </StackPanel>
-        <ListBox Name="lbUsers" ItemTemplate="{StaticResource dtOutputUser}" Grid.ColumnSpan="2" Grid.Row="1"></ListBox>
+        <ListBox Name="lbUsers" ItemTemplate="{StaticResource dtOutputUser}" Grid.Row="1"></ListBox>
     </Grid>
 </Page>
