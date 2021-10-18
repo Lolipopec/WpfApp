@@ -34,7 +34,7 @@ namespace WpfApp.pages
                 {
                     case 1:
                         MessageBox.Show("Администратор");
-                        LoadPages.MainFrame.Navigate(new adminMenu());
+                        LoadPages.MainFrame.Navigate(new UserToList());
                         break;
                     case 2:
                     default:

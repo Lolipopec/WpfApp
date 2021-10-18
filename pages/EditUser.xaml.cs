@@ -74,23 +74,17 @@ namespace WpfApp.pages
                                 }
                             }
                         }
-
                     }
-
                 }
                 catch { }
             }
-
-
         }
-
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             if (Old != null)
             {
                 Old.name = txtName.Text;
                 Old.dr = (DateTime)dpDr.SelectedDate;
-
             }
             else
             {
@@ -102,7 +96,6 @@ namespace WpfApp.pages
             users_to_traits UTT1 = BaseConnect.BaseModel.users_to_traits.FirstOrDefault(x => x.id_user == SelectedUser.id && x.id_trait == 1);
             users_to_traits UTT2 = BaseConnect.BaseModel.users_to_traits.FirstOrDefault(x => x.id_user == SelectedUser.id && x.id_trait == 2);
             users_to_traits UTT3 = BaseConnect.BaseModel.users_to_traits.FirstOrDefault(x => x.id_user == SelectedUser.id && x.id_trait == 3);
-
             if (cb1.IsChecked == true && UTT1 == null)
             {
                 users_to_traits UTT = new users_to_traits();
@@ -131,13 +124,13 @@ namespace WpfApp.pages
             }
             else if (UTT3 != null && cb3.IsChecked != true) { BaseConnect.BaseModel.users_to_traits.Remove(UTT3); }
             BaseConnect.BaseModel.SaveChanges();
+            BaseConnect.BaseModel.Database.Connection.Close();
+            BaseConnect.BaseModel.Database.Connection.Open();
             MessageBox.Show("Успех");
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            LoadPages.MainFrame.GoBack();
-
+            LoadPages.MainFrame.Navigate(new adminMenu());
         }
     }
 }

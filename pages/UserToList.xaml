@@ -1,0 +1,87 @@
+﻿<Page x:Class="WpfApp.pages.UserToList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp.pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="UserToList">
+    <Page.Resources>
+        <DataTemplate x:Key="dtOutputUser">
+            <StackPanel Orientation="Horizontal">
+                <GroupBox Header="Данные о пользователе" HorizontalAlignment="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <GroupBox Header="Имя" >
+                            <TextBlock Width="70" Text="{Binding name}"/>
+                        </GroupBox>
+                        <GroupBox Header="Дата рождения" >
+                            <TextBlock Width="70" Text="{Binding dr,StringFormat={}{0:dd.MM.yyyy}}"/>
+                        </GroupBox>
+                        <GroupBox Header="Пол" >
+                            <TextBlock Width="70" Text="{Binding genders.gender}"/>
+                        </GroupBox>
+                        <GroupBox Header="Особенности">
+                            <TextBlock TextWrapping="Wrap" Name="lbTraits" 
+        Loaded="lbTraits_Loaded"
+         Uid="{Binding id}"></TextBlock>
+                        </GroupBox>
+                    </StackPanel>
+                </GroupBox>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Изменить" Width="70" Name="btnChange" Style="{StaticResource BTN}" Click="btnChange_Click" Uid="{Binding id}" />
+                    <Button Content="Удалить" Width="70" Name="btnDelete" Style="{StaticResource BTN}" Click="btnDelete_Click" Uid="{Binding id}" />
+                </StackPanel>
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="64*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <DockPanel>
+            <StackPanel Orientation="Horizontal">
+                <GroupBox Header="Поля сортировки" Width="120">
+                    <ComboBox Name="ListSort" SelectionChanged ="ListSort_Selected">
+                        <ComboBoxItem Content="Дата рождения"/>
+                        <ComboBoxItem Content="От - До"/>
+                        <ComboBoxItem Content="Логин"/>
+                        <ComboBoxItem Content="Имя"/>
+                        <ComboBoxItem Content="Пол"/>
+                    </ComboBox>
+                </GroupBox>
+                <GroupBox Header = "От" x:Name = "StartGB"  Visibility = "Collapsed">
+                    <TextBox x:Name = "tbStart" Width = "45"/>
+                </GroupBox>
+                <GroupBox Header = "Дата рождения" Name = "DateGB" Visibility = "Collapsed">
+                    <DatePicker x:Name = "dpDate"/>
+                </GroupBox >
+                <GroupBox Header = "Логин" Name = "LogGB"  Visibility = "Collapsed">
+                    <TextBox x:Name = "tbLogin" Width = "70"/>
+                </GroupBox >
+                <GroupBox Header = "Имя" Name = "NameGB"  Visibility = "Collapsed">
+                    <TextBox x:Name = "tbName" Width = "70" />
+                </GroupBox >
+                <GroupBox Header = "До"  Name = "FinishGB"  Visibility = "Collapsed">
+                    <TextBox x:Name = "tbFinish" Width = "45" />
+                </GroupBox >
+                <GroupBox Header = "Пол" Name = "Gend"  Visibility = "Collapsed">
+                    <ComboBox x:Name = "cbGenderS" Width = "100" />
+                </GroupBox >
+            </StackPanel>
+        </DockPanel>
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal" Margin="5">
+            <Button x:Name="btnSort" Grid.Column="1" Content="Применить" Click="btnSort_Click" Margin="0,0,5,0"/>
+            <Button x:Name="btnRset"   Grid.Row="0" Content="Сбросить" Click="btnRset_Click" Margin="0,0,5,0" />
+            <Button Content="Создать пользователя" Click="btnCreateUser_Click" x:Name="btnCreateUser" Margin="0,0,5,0"/>
+            <Button Content="Старая версия" x:Name="bntOldVers" Click="bntOldVers_Click" Margin="0,0,5,0"/>
+            <Button Content="Назад" x:Name="btnBack" Click="btnBack_Click" Margin="0,0,5,0"/>
+        </StackPanel>
+        <ListBox Name="lbUsers" ItemTemplate="{StaticResource dtOutputUser}" Grid.ColumnSpan="2" Grid.Row="1"></ListBox>
+    </Grid>
+</Page>

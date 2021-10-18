@@ -42,8 +42,7 @@ namespace WpfApp.pages
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            LoadPages.MainFrame.GoBack();
-
+            LoadPages.MainFrame.Navigate(new UserToList());
         }
     }
 }
