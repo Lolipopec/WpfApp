@@ -36,7 +36,9 @@ namespace WpfApp.pages
             cb1.Content = traits2[0];
             cb2.Content = traits2[1];
             cb3.Content = traits2[2];
-            listGenders.ItemsSource = BaseConnect.BaseModel.genders.ToList();
+            tbGender.Text = SelectedUsers.users.genders.gender;
+            List<genders> genders = BaseConnect.BaseModel.genders.Where(x => x.gender != tbGender.Text).ToList();
+            listGenders.ItemsSource = genders;
             listGenders.SelectedValuePath = "id";
             listGenders.DisplayMemberPath = "gender";
             SelectedUser = SelectedUsers;
@@ -141,7 +143,7 @@ namespace WpfApp.pages
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            LoadPages.MainFrame.GoBack();
+            LoadPages.MainFrame.Navigate(new UserToList());
         }
     }
 }

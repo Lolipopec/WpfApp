@@ -25,7 +25,7 @@
                         <GroupBox Header=" качества личнности">
                             <TextBlock x:Name="tbTraits"/>
                         </GroupBox>
-                        <Button Content="Назад" Name="btnBack" Style="{StaticResource BTN}" Click="btnBack_Click"/>
+                        <Button IsDefault="True" Content="Назад" Name="btnBack" Style="{StaticResource BTN}" Click="btnBack_Click"/>
                     </StackPanel>
                 </GroupBox>
             </WrapPanel>

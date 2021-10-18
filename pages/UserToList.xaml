@@ -22,9 +22,7 @@
                             <TextBlock Width="70" Text="{Binding genders.gender}"/>
                         </GroupBox>
                         <GroupBox Header="Особенности">
-                            <TextBlock TextWrapping="Wrap" Name="lbTraits" 
-        Loaded="lbTraits_Loaded"
-         Uid="{Binding id}"></TextBlock>
+                            <TextBlock Name="lbTraits"  Loaded="lbTraits_Loaded" Uid="{Binding id}"></TextBlock>
                         </GroupBox>
                     </StackPanel>
                 </GroupBox>
@@ -73,7 +71,7 @@
         </DockPanel>
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
             <StackPanel Orientation="Vertical" Width="80">
-                <Button x:Name="btnSort" Content="Применить" Click="btnSort_Click" Margin="0,0,5,0" Style="{StaticResource BTN}"/>
+                <Button x:Name="btnSort" IsDefault="True" Content="Применить" Click="btnSort_Click" Margin="0,0,5,0" Style="{StaticResource BTN}"/>
                 <Button x:Name="btnRset" Grid.Row="0" Content="Сбросить" Click="btnRset_Click" Margin="0,0,5,0" Style="{StaticResource BTN}" />
             </StackPanel>
             <Button Width="80" Click="btnCreateUser_Click" x:Name="btnCreateUser" Margin="0,0,5,0" Style="{StaticResource BTN}"/>

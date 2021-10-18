@@ -23,6 +23,7 @@ namespace WpfApp.pages
         public login()
         {
             InitializeComponent();
+            txtLogin.Focus();
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)

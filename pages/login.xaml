@@ -12,7 +12,7 @@
         <GroupBox Header="Введите данные для атворизации">
             <StackPanel Orientation="Vertical">
                 <GroupBox Header="Логин">
-                    <TextBox x:Name="txtLogin" />
+                    <TextBox x:Name="txtLogin"  />
                 </GroupBox>
                 <GroupBox Header="Пароль">
                     <PasswordBox x:Name="txtPassword"/>

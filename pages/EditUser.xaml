@@ -24,17 +24,20 @@
                     <GroupBox Header="Дату рождения">
                         <DatePicker x:Name="dpDr"/>
                     </GroupBox>
-                    <GroupBox Header=" пол">
+                    <GroupBox Header="Текущий пол пользователя" >
+                        <TextBlock Name="tbGender" />
+                    </GroupBox>
+                    <GroupBox Header="Пол для изменения">
                         <ListBox x:Name="listGenders"/>
                     </GroupBox>
-                    <GroupBox Header=" качества личности">
+                    <GroupBox Header="Качества личности">
                         <StackPanel>
                             <CheckBox Content="Добрый" Name="cb1"/>
                             <CheckBox Content="Нежный" Name="cb2"/>
                             <CheckBox Content="Ласковый" Name="cb3"/>
                         </StackPanel>
                     </GroupBox>
-                    <Button Content="Сохранить" Name="btnSave" Style="{StaticResource BTN}" Click="btnSave_Click"/>
+                    <Button Content="Сохранить" Name="btnSave" IsDefault="True" Style="{StaticResource BTN}" Click="btnSave_Click"/>
                     <Button Content="Назад" Style="{StaticResource BTN}" Click="Button_Click"/>
                 </StackPanel>
             </GroupBox>
