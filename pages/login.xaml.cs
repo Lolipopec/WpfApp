@@ -34,12 +34,10 @@ namespace WpfApp.pages
                 switch (CurrentUser.role)
                 {
                     case 1:
-                        MessageBox.Show("Администратор");
                         LoadPages.MainFrame.Navigate(new UserToList());
                         break;
                     case 2:
                     default:
-                        MessageBox.Show("Пользователь");
                         LoadPages.MainFrame.Navigate(new info(CurrentUser));
                         break;
                 }
