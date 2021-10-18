@@ -48,7 +48,7 @@ namespace WpfApp.pages
 
         private void btnReg_Click(object sender, RoutedEventArgs e)
         {
-            LoadPages.MainFrame.Navigate(new reg());
+            LoadPages.MainFrame.Navigate(new reg(2));
         }
     }
 }

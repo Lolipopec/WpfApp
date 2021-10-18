@@ -157,8 +157,7 @@ namespace WpfApp.pages
 
         private void btnCreateUser_Click(object sender, RoutedEventArgs e)
         {
-            LoadPages.MainFrame.Navigate(new reg());
-            NavigationService.Refresh();
+            LoadPages.MainFrame.Navigate(new reg(1));
         }
     }
 }
