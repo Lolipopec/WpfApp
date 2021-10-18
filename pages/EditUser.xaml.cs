@@ -25,6 +25,17 @@ namespace WpfApp.pages
         public EditUser(auth SelectedUsers)
         {
             InitializeComponent();
+            string[] traits2 = new string[3];
+            List<traits> traits1 = BaseConnect.BaseModel.traits.ToList();
+            int i = 0;
+            foreach (traits tr in traits1)
+            {
+                traits2[i] = tr.trait;
+                i++;
+            }
+            cb1.Content = traits2[0];
+            cb2.Content = traits2[1];
+            cb3.Content = traits2[2];
             listGenders.ItemsSource = BaseConnect.BaseModel.genders.ToList();
             listGenders.SelectedValuePath = "id";
             listGenders.DisplayMemberPath = "gender";

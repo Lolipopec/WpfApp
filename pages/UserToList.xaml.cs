@@ -46,7 +46,7 @@ namespace WpfApp.pages
             Button btn = (Button)sender;
             int id = Convert.ToInt32(btn.Uid);
             auth CurrentUser = BaseConnect.BaseModel.auth.FirstOrDefault(x => x.id == id);
-            //LoadPages.MainFrame.Navigate(new ChangeUser(CurrentUser));
+            LoadPages.MainFrame.Navigate(new EditUser(CurrentUser));
         }
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
@@ -57,7 +57,6 @@ namespace WpfApp.pages
             BaseConnect.BaseModel.SaveChanges();
             MessageBox.Show("Пользователь успешно удален!");
         }
-
         private void ListSort_Selected(object sender, RoutedEventArgs e)
         {
             if (ListSort.SelectedIndex == 0)
