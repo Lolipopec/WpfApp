@@ -23,6 +23,7 @@ namespace WpfApp.pages
         public reg()
         {
             InitializeComponent();
+            txtLog.Focus();
             listGenders.ItemsSource = BaseConnect.BaseModel.genders.ToList();
             listGenders.SelectedValuePath = "id";
             listGenders.DisplayMemberPath = "gender";
