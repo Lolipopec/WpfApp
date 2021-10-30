@@ -35,48 +35,58 @@
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="64*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
-        <DockPanel>
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Orientation="Vertical" >
+                <GroupBox Header = "От" x:Name = "StartGB"  Visibility = "Visible">
+                    <TextBox x:Name = "tbStart" Width = "45" Height="20" TextChanged="Sort_Click"/>
+                </GroupBox>
+                <GroupBox Header = "До"  Name = "FinishGB"  Visibility = "Visible">
+                    <TextBox x:Name = "tbFinish" Width = "45" Height="20" TextChanged="Sort_Click"/>
+                </GroupBox >
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <GroupBox Header = "Логин" Name = "LogGB"  Visibility = "Visible">
+                    <TextBox x:Name = "tbLogin" Width = "70" Height="20" TextChanged="Sort_Click"/>
+                </GroupBox >
+                <GroupBox Header = "Имя" Name = "NameGB"  Visibility = "Visible">
+                    <TextBox x:Name = "tbName" Width = "70" Height="20" TextChanged="Sort_Click"/>
+                </GroupBox >
+            </StackPanel>
+            <StackPanel Orientation="Vertical">
+                <GroupBox Header = "Дата рождения" Name = "DateGB" Visibility = "Visible">
+                    <DatePicker x:Name = "dpDate" SelectedDateChanged="Sort_Click"/>
+                </GroupBox >
+                <GroupBox Header = "Пол" Name = "Gend"  Visibility = "Visible">
+                    <ComboBox x:Name = "cbGenderS" Width = "100" SelectionChanged="Sort_Click"/>
+                </GroupBox >
+            </StackPanel>
+            <StackPanel VerticalAlignment="Center" Orientation="Vertical">
+                <Button x:Name="btnSort" Margin="0,0,0,5" Width="80" IsDefault="True" Content="Применить" Click="Sort_Click" Style="{StaticResource BTN}"/>
+                <Button x:Name="btnRset" Width="80" Content="Сбросить" Click="btnRset_Click" Style="{StaticResource BTN}" />
+            </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <GroupBox Header="Поля сортировки" Width="120">
-                    <ComboBox Name="ListSort" SelectionChanged ="ListSort_Selected">
-                        <ComboBoxItem Content="Дата рождения"/>
-                        <ComboBoxItem Content="От - До"/>
-                        <ComboBoxItem Content="Логин"/>
-                        <ComboBoxItem Content="Имя"/>
-                        <ComboBoxItem Content="Пол"/>
-                    </ComboBox>
+                <GroupBox Header="Записей на странице">
+                    <TextBox x:Name="txtPageCount" TextChanged="txtPageCount_TextChanged" Margin="0,9,0.2,9.6"/>
                 </GroupBox>
-                <GroupBox Header = "От" x:Name = "StartGB"  Visibility = "Collapsed">
-                    <TextBox x:Name = "tbStart" Width = "45"/>
-                </GroupBox>
-                <GroupBox Header = "Дата рождения" Name = "DateGB" Visibility = "Collapsed">
-                    <DatePicker x:Name = "dpDate"/>
-                </GroupBox >
-                <GroupBox Header = "Логин" Name = "LogGB"  Visibility = "Collapsed">
-                    <TextBox x:Name = "tbLogin" Width = "70"/>
-                </GroupBox >
-                <GroupBox Header = "Имя" Name = "NameGB"  Visibility = "Collapsed">
-                    <TextBox x:Name = "tbName" Width = "70" />
-                </GroupBox >
-                <GroupBox Header = "До"  Name = "FinishGB"  Visibility = "Collapsed">
-                    <TextBox x:Name = "tbFinish" Width = "45" />
-                </GroupBox >
-                <GroupBox Header = "Пол" Name = "Gend"  Visibility = "Collapsed">
-                    <ComboBox x:Name = "cbGenderS" Width = "100"/>
-                </GroupBox >
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10">
+                    <TextBlock x:Name="txtPrev" Uid="prev" Text="Пред." MouseDown="GoPage_MouseDown"/>
+                    <TextBlock x:Name="txt1" Uid="1" Text=" 1 " MouseDown="GoPage_MouseDown"/>
+                    <TextBlock x:Name="txt2" Uid="2" Text=" 2 " MouseDown="GoPage_MouseDown"/>
+                    <TextBlock x:Name="txt3" Uid="3" Text=" 3 " MouseDown="GoPage_MouseDown"/>
+                    <TextBlock x:Name="txt4" Uid="4" Text=" 4 " MouseDown="GoPage_MouseDown"/>
+                    <TextBlock x:Name="txt5" Uid="5" Text=" 5 " MouseDown="GoPage_MouseDown"/>
+                    <TextBlock x:Name="txtNext" Uid="next" Text="След." MouseDown="GoPage_MouseDown"/>
+                </StackPanel>
             </StackPanel>
-        </DockPanel>
-        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5" HorizontalAlignment="Right">
-            <StackPanel Orientation="Vertical" Width="80">
-                <Button x:Name="btnSort" IsDefault="True" Content="Применить" Click="btnSort_Click" Margin="0,0,5,0" Style="{StaticResource BTN}"/>
-                <Button x:Name="btnRset" Grid.Row="0" Content="Сбросить" Click="btnRset_Click" Margin="0,0,5,0" Style="{StaticResource BTN}" />
-            </StackPanel>
-            <Button Width="80" Click="btnCreateUser_Click" x:Name="btnCreateUser" Margin="0,0,5,0" Style="{StaticResource BTN}"/>
-            <Button Width="80" x:Name="bntOldVers" Click="bntOldVers_Click" Margin="0,0,5,0" Style="{StaticResource BTN}"/>
-            <Button Content="Назад"  Width="80" x:Name="btnBack" Click="btnBack_Click" Margin="0,0,5,0" Style="{StaticResource BTN}"/>
+            <TextBlock x:Name="txtCurentPage"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button x:Name="btnCreateUser" Margin="0,0,5,0" Height="50" Width="80" Click="btnCreateUser_Click"  Style="{StaticResource BTN}"/>
+            <Button x:Name="bntOldVers"  Margin="0,0,5,0" Height="50" Width="80" Click="bntOldVers_Click" Style="{StaticResource BTN}"/>
+            <Button x:Name="btnBack"  Margin="0,0,5,0"  Height="50" Width="80" Content="Назад"   Click="btnBack_Click"  Style="{StaticResource BTN}"/>
         </StackPanel>
         <ListBox Name="lbUsers" ItemTemplate="{StaticResource dtOutputUser}" Grid.Row="1"></ListBox>
     </Grid>

@@ -38,10 +38,10 @@ namespace WpfApp.pages
             TextBlock lb = (TextBlock)sender;
             int id = Convert.ToInt32(lb.Uid);
             lb.Text = "";
-            List <users_to_traits> l= BaseConnect.BaseModel.users_to_traits.Where(x => x.id_user == id).ToList();
+            List<users_to_traits> l = BaseConnect.BaseModel.users_to_traits.Where(x => x.id_user == id).ToList();
             foreach (var a in l)
             {
-                lb.Text += a.traits.trait +"; ";
+                lb.Text += a.traits.trait + "; ";
             }
         }
         private void btnChange_Click(object sender, RoutedEventArgs e)
@@ -62,55 +62,6 @@ namespace WpfApp.pages
             users = BaseConnect.BaseModel.users.ToList();
             lbUsers.ItemsSource = users;
         }
-        private void ListSort_Selected(object sender, RoutedEventArgs e)
-        {
-            if (ListSort.SelectedIndex == 0)
-            {
-                DateGB.Visibility = Visibility.Visible;
-                StartGB.Visibility = Visibility.Collapsed;
-                LogGB.Visibility = Visibility.Collapsed;
-                FinishGB.Visibility = Visibility.Collapsed;
-                Gend.Visibility = Visibility.Collapsed;
-                NameGB.Visibility = Visibility.Collapsed;
-            }
-            if (ListSort.SelectedIndex == 1)
-            {
-                DateGB.Visibility = Visibility.Collapsed;
-                StartGB.Visibility = Visibility.Visible;
-                LogGB.Visibility = Visibility.Collapsed;
-                FinishGB.Visibility = Visibility.Visible;
-                Gend.Visibility = Visibility.Collapsed;
-                NameGB.Visibility = Visibility.Collapsed;
-            }
-            if (ListSort.SelectedIndex == 2)
-            {
-                DateGB.Visibility = Visibility.Collapsed;
-                StartGB.Visibility = Visibility.Collapsed;
-                LogGB.Visibility = Visibility.Visible;
-                FinishGB.Visibility = Visibility.Collapsed;
-                Gend.Visibility = Visibility.Collapsed;
-                NameGB.Visibility = Visibility.Collapsed;
-            }
-            if (ListSort.SelectedIndex == 4)
-            {
-                DateGB.Visibility = Visibility.Collapsed;
-                StartGB.Visibility = Visibility.Collapsed;
-                LogGB.Visibility = Visibility.Collapsed;
-                FinishGB.Visibility = Visibility.Collapsed;
-                Gend.Visibility = Visibility.Visible;
-                NameGB.Visibility = Visibility.Collapsed;
-            }
-            if (ListSort.SelectedIndex == 3)
-            {
-                DateGB.Visibility = Visibility.Collapsed;
-                StartGB.Visibility = Visibility.Collapsed;
-                LogGB.Visibility = Visibility.Collapsed;
-                FinishGB.Visibility = Visibility.Collapsed;
-                Gend.Visibility = Visibility.Collapsed;
-                NameGB.Visibility = Visibility.Visible;
-            }
-        }
-
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             LoadPages.MainFrame.Navigate(new login());
@@ -121,43 +72,169 @@ namespace WpfApp.pages
             LoadPages.MainFrame.Navigate(new adminMenu());
         }
 
-        private void btnSort_Click(object sender, RoutedEventArgs e)
+        private void Sort_Click(object sender, RoutedEventArgs e)
         {
-            List<users> listUsers = users;
-            if (ListSort.SelectedIndex == 0)
-            {
-                listUsers = users.Where(x => x.dr == (DateTime)dpDate.SelectedDate).ToList();
-            }
-            if (ListSort.SelectedIndex == 1)
+            List<users> listUsers = users.ToList();
+            try
             {
                 int start = Convert.ToInt32(tbStart.Text) - 1;
                 int finish = Convert.ToInt32(tbFinish.Text);
-                listUsers = users.Skip(start).Take(finish - start).ToList();
+                listUsers = listUsers.Skip(start).Take(finish - start).ToList();
             }
-            if (ListSort.SelectedIndex == 2)
+            catch { }
+            if (tbLogin.Text != "")
             {
-                auth user =BaseConnect.BaseModel.auth.FirstOrDefault(x => x.login == tbLogin.Text);
-                listUsers = users.Where(x => x.id == user.id).ToList();
+                List<users> listUser = listUsers.ToList();
+                listUser.Clear();
+                foreach (users l in listUsers)
+                {
+                    if (l.auth.login.Contains(tbLogin.Text))
+                    {
+                        listUser.Add(l);
+                    }
+                }
+                listUsers.Clear();
+                listUsers = listUser;
             }
-            if (ListSort.SelectedIndex == 3)
+            if (tbName.Text != "")
             {
-                listUsers = users.Where(x => x.name == tbName.Text).ToList();
+                listUsers = listUsers.Where(x => x.name.Contains(tbName.Text)).ToList();
             }
-            if (ListSort.SelectedIndex == 4)
+            if (dpDate.SelectedDate != null) { listUsers = listUsers.Where(x => x.dr == (DateTime)dpDate.SelectedDate).ToList(); }
+            if (cbGenderS.SelectedValue != null)
             {
-                listUsers = users.Where(x => x.gender == Convert.ToInt32(cbGenderS.SelectedValue)).ToList();
+                listUsers = listUsers.Where(x => x.gender == Convert.ToInt32(cbGenderS.SelectedValue)).ToList();
             }
             lbUsers.ItemsSource = listUsers;
         }
 
         private void btnRset_Click(object sender, RoutedEventArgs e)
         {
+            users = BaseConnect.BaseModel.users.ToList();
             lbUsers.ItemsSource = users;
+            tbName.Text = "";
+            tbLogin.Text = "";
+            cbGenderS.SelectedValue = null;
+            dpDate.SelectedDate = null;
+            tbStart.Text = "";
+            tbFinish.Text = "";
         }
 
         private void btnCreateUser_Click(object sender, RoutedEventArgs e)
         {
             LoadPages.MainFrame.Navigate(new reg(1));
+        }
+        private void tbStart_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !(Char.IsDigit(e.Text, 0));
+        }
+        int currpg = 1;
+        private void GoPage_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                List<users> lb = users.ToList();
+                TextBlock tb = (TextBlock)sender;
+                int countList = users.Count;
+                int countzap = Convert.ToInt32(txtPageCount.Text);
+                int countpage = countList / countzap;
+
+                switch (tb.Uid)
+                {
+                    case "prev":
+                        currpg--;
+                        break;
+                    case "1":
+                        if (currpg < 3) currpg = 1;
+                        else if (currpg > countpage) currpg = countpage - 4;
+                        else currpg -= 2;
+                        break;
+                    case "2":
+                        if (currpg < 3) currpg = 2;
+                        else if (currpg > countpage) currpg = countpage - 3;
+                        else currpg -= 1;
+                        break;
+                    case "3":
+                        if (currpg < 3) currpg = 3;
+                        else if (currpg > countpage) currpg = countpage - 2;
+                        break;
+                    case "4":
+                        if (currpg < 3) currpg = 4;
+                        else if (currpg > countpage) currpg = countpage - 1;
+                        else currpg++;
+                        break;
+                    case "5":
+                        if (currpg < 3) currpg = 5;
+                        else if (currpg > countpage) currpg = countpage;
+                        else currpg += 2;
+                        break;
+                    case "next":
+                        currpg++;
+                        break;
+                    default:
+                        currpg = 1;
+                        break;
+                }
+
+                //отрисовка
+                if (currpg < 3)
+                {
+                    txt1.Text = " 1 ";
+                    txt2.Text = " 2 ";
+                    txt3.Text = " 3 ";
+                    txt4.Text = " 4 ";
+                    txt5.Text = " 5 ";
+                }
+                else if (currpg > countpage - 2)
+                {
+                    txt1.Text = " " + (countpage - 4).ToString() + " ";
+                    txt2.Text = " " + (countpage - 3).ToString() + " ";
+                    txt3.Text = " " + (countpage - 2).ToString() + " ";
+                    txt4.Text = " " + (countpage - 1).ToString() + " ";
+                    txt5.Text = " " + (countpage).ToString() + " ";
+
+                }
+                else
+                {
+                    txt1.Text = " " + (currpg - 2).ToString() + " ";
+                    txt2.Text = " " + (currpg - 1).ToString() + " ";
+                    txt3.Text = " " + (currpg).ToString() + " ";
+                    txt4.Text = " " + (currpg + 1).ToString() + " ";
+                    txt5.Text = " " + (currpg + 2).ToString() + " ";
+
+                }
+                txtCurentPage.Text = "Текущая страница: " + (currpg).ToString();
+
+                if (currpg < 1) currpg = 1;
+                if (currpg >= countpage) currpg = countpage;
+
+                lb = users.Skip(currpg * countzap - countzap).Take(countzap).ToList();
+                lbUsers.ItemsSource = lb;
+            }
+            catch
+            {
+                //null
+            }
+        }
+
+        private void txtPageCount_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            List<users> lb = users.ToList();
+            try
+            {
+                if (txtPageCount.Text == "")
+                {
+                    lb = users.ToList();
+                }
+                else
+                    lb = users.Take(Convert.ToInt32(txtPageCount.Text)).ToList();
+
+                lbUsers.ItemsSource = lb;
+            }
+            catch
+            {
+                //null
+            }
         }
     }
 }
