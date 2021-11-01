@@ -128,87 +128,115 @@ namespace WpfApp.pages
         {
             e.Handled = !(Char.IsDigit(e.Text, 0));
         }
-        int currpg = 1;
+        int CurrentPages = 1;
         private void GoPage_MouseDown(object sender, MouseButtonEventArgs e)
         {
             try
             {
                 List<users> lb = users.ToList();
                 TextBlock tb = (TextBlock)sender;
-                int countList = users.Count;
-                int countzap = Convert.ToInt32(txtPageCount.Text);
-                int countpage = countList / countzap;
-
+                int CountZapInList = users.Count;
+                int CountZapOnPage = Convert.ToInt32(txtPageCount.Text);
+                int CountPage;
+                if (CountZapOnPage % 2 == 0)
+                {
+                    CountPage = (CountZapInList / CountZapOnPage);
+                }
+                else 
+                {
+                    CountPage = (CountZapInList / CountZapOnPage) + 1;
+                }
                 switch (tb.Uid)
                 {
                     case "prev":
-                        currpg--;
+                        CurrentPages--;
                         break;
                     case "1":
-                        if (currpg < 3) currpg = 1;
-                        else if (currpg > countpage) currpg = countpage - 4;
-                        else currpg -= 2;
+                        if (CurrentPages < 3) CurrentPages = 1;
+                        else if (CurrentPages > CountPage) CurrentPages = CountPage - 4;
+                        else CurrentPages -= 2;
                         break;
                     case "2":
-                        if (currpg < 3) currpg = 2;
-                        else if (currpg > countpage) currpg = countpage - 3;
-                        else currpg -= 1;
+                        if (CurrentPages < 3) CurrentPages = 2;
+                        else if (CurrentPages > CountPage) CurrentPages = CountPage - 3;
+                        else CurrentPages -= 1;
                         break;
                     case "3":
-                        if (currpg < 3) currpg = 3;
-                        else if (currpg > countpage) currpg = countpage - 2;
+                        if (CurrentPages < 3) CurrentPages = 3;
+                        else if (CurrentPages > CountPage) CurrentPages = CountPage - 2;
                         break;
                     case "4":
-                        if (currpg < 3) currpg = 4;
-                        else if (currpg > countpage) currpg = countpage - 1;
-                        else currpg++;
+                        if (CurrentPages < 3) CurrentPages = 4;
+                        else if (CurrentPages > CountPage) CurrentPages = CountPage - 1;
+                        else CurrentPages++;
                         break;
                     case "5":
-                        if (currpg < 3) currpg = 5;
-                        else if (currpg > countpage) currpg = countpage;
-                        else currpg += 2;
+                        if (CurrentPages < 3) CurrentPages = 5;
+                        else if (CurrentPages > CountPage) CurrentPages = CountPage;
+                        else CurrentPages += 2;
                         break;
                     case "next":
-                        currpg++;
+                        CurrentPages++;
                         break;
                     default:
-                        currpg = 1;
+                        CurrentPages = 1;
                         break;
                 }
 
+                if (CurrentPages < 1) CurrentPages = 1;
+                if (CurrentPages > CountPage) CurrentPages = CountPage;
                 //отрисовка
-                if (currpg < 3)
+                if (CountPage < 5)
+                {
+                    txt5.Visibility = Visibility.Collapsed;
+                }
+                else if (CountPage < 4)
+                {
+                    txt4.Visibility = Visibility.Collapsed;
+                }
+                else if (CountPage < 3)
+                {
+                    txt3.Visibility = Visibility.Collapsed;
+                }
+                else if (CountPage < 2)
+                {
+                    txt2.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    txt2.Visibility = Visibility.Visible;
+                    txt3.Visibility = Visibility.Visible;
+                    txt4.Visibility = Visibility.Visible;
+                    txt5.Visibility = Visibility.Visible;
+                }
+                if (CurrentPages < 3)
                 {
                     txt1.Text = " 1 ";
                     txt2.Text = " 2 ";
                     txt3.Text = " 3 ";
                     txt4.Text = " 4 ";
                     txt5.Text = " 5 ";
-                }
-                else if (currpg > countpage - 2)
+                }  
+                else if (CurrentPages > CountPage - 2)
                 {
-                    txt1.Text = " " + (countpage - 4).ToString() + " ";
-                    txt2.Text = " " + (countpage - 3).ToString() + " ";
-                    txt3.Text = " " + (countpage - 2).ToString() + " ";
-                    txt4.Text = " " + (countpage - 1).ToString() + " ";
-                    txt5.Text = " " + (countpage).ToString() + " ";
-
+                    txt1.Text = " " + (CountPage - 4).ToString() + " ";
+                    txt2.Text = " " + (CountPage - 3).ToString() + " ";
+                    txt3.Text = " " + (CountPage - 2).ToString() + " ";
+                    txt4.Text = " " + (CountPage - 1).ToString() + " ";
+                    txt5.Text = " " + (CountPage).ToString() + " ";
                 }
-                else
+                else 
                 {
-                    txt1.Text = " " + (currpg - 2).ToString() + " ";
-                    txt2.Text = " " + (currpg - 1).ToString() + " ";
-                    txt3.Text = " " + (currpg).ToString() + " ";
-                    txt4.Text = " " + (currpg + 1).ToString() + " ";
-                    txt5.Text = " " + (currpg + 2).ToString() + " ";
+                    txt1.Text = " " + (CurrentPages - 2).ToString() + " ";
+                    txt2.Text = " " + (CurrentPages - 1).ToString() + " ";
+                    txt3.Text = " " + (CurrentPages).ToString() + " ";
+                    txt4.Text = " " + (CurrentPages + 1).ToString() + " ";
+                    txt5.Text = " " + (CurrentPages + 2).ToString() + " ";
 
                 }
-                txtCurentPage.Text = "Текущая страница: " + (currpg).ToString();
+                txtCurentPage.Text = "Текущая страница: " + (CurrentPages).ToString();
 
-                if (currpg < 1) currpg = 1;
-                if (currpg >= countpage) currpg = countpage;
-
-                lb = users.Skip(currpg * countzap - countzap).Take(countzap).ToList();
+                lb = users.Skip(CurrentPages * CountZapOnPage - CountZapOnPage).Take(CountZapOnPage).ToList();
                 lbUsers.ItemsSource = lb;
             }
             catch
