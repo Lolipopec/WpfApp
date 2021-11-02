@@ -1,0 +1,30 @@
+﻿<Page x:Class="WpfApp.pages.dllTest"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfApp.pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="dllTest">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <GroupBox Header="Средний возраст">
+            <StackPanel>
+                <TextBlock x:Name="txtAg"/>
+                <Button x:Name="btnAge" Content="Посчитать" Click="btnAge_Click"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Поиск вхождения" Grid.Column="1">
+            <StackPanel>
+                <TextBox x:Name="txtStr"/>
+                <Button x:Name="btnSerch" Content="Найти" Click="btnSerch_Click"/>
+                <ListBox x:Name="listUser"/>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</Page>

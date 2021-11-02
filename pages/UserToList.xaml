@@ -87,6 +87,7 @@
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <Button x:Name="btnCreateUser" Margin="0,0,5,0" Height="50" Width="80" Click="btnCreateUser_Click"  Style="{StaticResource BTN}"/>
             <Button x:Name="bntOldVers"  Margin="0,0,5,0" Height="50" Width="80" Click="bntOldVers_Click" Style="{StaticResource BTN}"/>
+            <Button x:Name="btnDll"  Margin="0,0,5,0"  Height="50" Width="80" Content="DLL"   Click="btnDll_Click"  Style="{StaticResource BTN}"/>
             <Button x:Name="btnBack"  Margin="0,0,5,0"  Height="50" Width="80" Content="Назад"   Click="btnBack_Click"  Style="{StaticResource BTN}"/>
         </StackPanel>
         <ListBox Name="lbUsers" ItemTemplate="{StaticResource dtOutputUser}" Grid.Row="1"></ListBox>

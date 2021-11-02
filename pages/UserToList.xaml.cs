@@ -264,5 +264,9 @@ namespace WpfApp.pages
                 //null
             }
         }
+        private void btnDll_Click(object sender, RoutedEventArgs e)
+        {
+            LoadPages.MainFrame.Navigate(new dllTest());
+        }
     }
 }
