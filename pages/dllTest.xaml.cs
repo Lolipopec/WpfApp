@@ -55,5 +55,10 @@ namespace WpfApp.pages
                 listUser.Items.Add(s);
             }
         }
+
+        private void back_Click(object sender, RoutedEventArgs e)
+        {
+            LoadPages.MainFrame.GoBack();
+        }
     }
 }
