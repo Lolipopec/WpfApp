@@ -246,7 +246,6 @@ namespace WpfApp.pages
                 usersimage UI;
                 if (avatar != null)
                 {
-
                     if (MessageBox.Show("Сменить аватар пользователя?", "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                     {
                         UserImage = System.Drawing.Image.FromFile(openFileDialog.FileName);//создаем изображение
@@ -261,9 +260,7 @@ namespace WpfApp.pages
                         IC = new ImageConverter();//конвертер изображения в массив байт
                         ByteArr = (byte[])IC.ConvertTo(UserImage, typeof(byte[]));//непосредственно конвертация
                         UI = new usersimage() { id_user = ind, image = ByteArr, avatar = false };//создаем новый объект usersimage
-
                     }
-
                 }
                 else
                 {
@@ -290,7 +287,7 @@ namespace WpfApp.pages
             Button BTN = (Button)sender;
             int ind = Convert.ToInt32(BTN.Uid);
             users currenUser = BaseConnect.BaseModel.users.FirstOrDefault(x => x.id == ind);
-            //LoadPages.MainFrame.Navigate(new pgGallery(currenUser));
+            LoadPages.MainFrame.Navigate(new pgGallery(currenUser));
         }
     }
 }
