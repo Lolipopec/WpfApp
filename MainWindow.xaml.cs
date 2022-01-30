@@ -25,7 +25,7 @@ namespace WpfApp
         {
             InitializeComponent();
             LoadPages.MainFrame = frmMain;
-            frmMain.Navigate(new login());
+            frmMain.Navigate(new Media());
             BaseConnect.BaseModel = new Entities();
         }
     }
