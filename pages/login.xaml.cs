@@ -50,5 +50,10 @@ namespace WpfApp.pages
         {
             LoadPages.MainFrame.Navigate(new reg(2));
         }
+
+        private void btnGoToGraph_Click(object sender, RoutedEventArgs e)
+        {
+            LoadPages.MainFrame.Navigate(new Diagram());
+        }
     }
 }

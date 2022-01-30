@@ -81,6 +81,9 @@
     <Compile Include="pages\adminMenu.xaml.cs">
       <DependentUpon>adminMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="pages\Diagram.xaml.cs">
+      <DependentUpon>Diagram.xaml</DependentUpon>
+    </Compile>
     <Compile Include="pages\dllTest.xaml.cs">
       <DependentUpon>dllTest.xaml</DependentUpon>
     </Compile>
@@ -122,6 +125,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="pages\adminMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="pages\Diagram.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

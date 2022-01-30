@@ -19,6 +19,7 @@
                 </GroupBox>
                 <Button Content="Войти" IsDefault="True" Name="btnLogin" Style="{StaticResource BTN}" Click="btnLogin_Click"/>
                 <Button Content="Регистрация" Name="btnReg" Style="{StaticResource BTN}" Click="btnReg_Click"/>
+                <Button Content="График" Name="btnGoToGraph" Style="{StaticResource BTN}" Click="btnGoToGraph_Click"/>
             </StackPanel>
         </GroupBox>
     </Grid>
